@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li><button onclick="searchEvents('48180')">Taylor, MI</button></li>
+        <li><button onclick="searchEvents('48195')">Southgate, MI</button></li>
+        <li><button onclick="searchEvents('48124')">Dearborn, MI</button></li>
+        <li><button onclick="searchEvents('48152')">Livonia, MI</button></li>
+        <li><button title="" onclick="searchEvents('48122')">Melvindale, MI</button></li>
+        <li><button title="" onclick="searchEvents('48185')">Westland, MI</button></li>
+        <li><button title="" onclick="searchEvents('48072')">Berkley, MI</button></li>
+        <li><button title="" onclick="searchEvents('48228')">Detroit, MI</button></li>
+        <li><button title="" onclick="searchEvents('48198')">Ypsilanti, MI</button></li>
+    </ul>
+
+<table id="results" width="100%" border="1" cellpadding="1">
+
+</table>
+</body>
+<script>
+    function searchEvents(zipCode) {
+        var url = "https://www.eventbriteapi.com/v3/events/search/?location.within=25mi&location.address=" + zipCode + "&popular=false&start_date.keyword=this_week&token=44XILIHMJ6H4AITYHQH4";
+        $('#results').empty();
+        $.get( url, function( data ) {
+            var events = data.events;
+            events.forEach(function(event) {
+                if (event.description != null) {
+                    $('#results').append('<tr><td>' + event.description.text + '</td></tr>');
+                }
+            });
+        });
+        //https://www.eventbriteapi.com/v3/events/search/
+        //?location.within=25mi
+        //location.address=48180
+        //popular=true
+        //token=44XILIHMJ6H4AITYHQH4
+        //start_date.keyword=this_week
+
+        //https://www.eventbriteapi.com/v3/events/search/?location.within=25mi&location.address=48180&popular=true&start_date.keyword=this_week
+    }
+</script>
+</html>

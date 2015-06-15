@@ -1,0 +1,44 @@
+<html>
+<head>
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        function searchEvents(zipCode)
+        {
+            var oArgs = {
+                app_key: "php8ZfPkRShSpg6M",
+                q: "",
+                where: zipCode,
+                "date": "2013061000-2015062000",
+                page_size: 100,
+                sort_order: "popularity",
+            };
+
+            EVDB.API.call("/events/search", oArgs, function(data) {
+                // Note: this relies on the custom toString() methods below
+                var events = data.events.event;
+                events.forEach(function(event) {
+                    $('#results').append('<tr><td>' + event.title + '</td></tr>');
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li><button onclick="searchEvents('48180')">Taylor, MI</button></li>
+        <li><button onclick="searchEvents('48195')">Southgate, MI</button></li>
+        <li><button onclick="searchEvents('48124')">Dearborn, MI</button></li>
+        <li><button onclick="searchEvents('48152')">Livonia, MI</button></li>
+        <li><button title="" onclick="searchEvents('48122')">Melvindale, MI</button></li>
+        <li><button title="" onclick="searchEvents('48185')">Westland, MI</button></li>
+        <li><button title="" onclick="searchEvents('48072')">Berkley, MI</button></li>
+        <li><button title="" onclick="searchEvents('48228')">Detroit, MI</button></li>
+        <li><button title="" onclick="searchEvents('48198')">Ypsilanti, MI</button></li>
+    </ul>
+
+    <table id="results" width="100%" border="1" cellpadding="1"></table>
+
+</body>
+
+</html>
